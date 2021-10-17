@@ -12,8 +12,9 @@ const HomeComponent = () => {
         const Access_Key = "VaS3ud1C-0gdW1nw41FbBryaV_Q5obZ04o-3Vi2QC1E"
         const res = await fetch(`https://api.unsplash.com/photos/?client_id=${Access_Key}&page=${pageNumber}&per_page=30`)
         const data = await res.json()
+        // console.log('data=>', data)
         setPhotos((p) => [...p, ...data])
-        console.log('photos->', photos);
+        // console.log('photos->', photos);
         setLoading(true)
     }
 
@@ -61,7 +62,6 @@ const HomeComponent = () => {
         };
     }
 
-
     return (
         <div className="box">
             <ul className={classes.photoGrid}>
@@ -76,13 +76,15 @@ const HomeComponent = () => {
                     ))
                 }
             </ul>
-            <div className={classes.loading}>
-                <h2>Loading....</h2>
-                <h3>{photos?.length}</h3>
-                <button onClick={loadMore} ref={pageEnd}>
-                    Load More
-                </button>
-            </div>
+            {
+                loading && <div className={classes.loading}>
+                    <h2>Loading....</h2>
+                    <h3>{photos?.length}</h3>
+                    <button onClick={loadMore} ref={pageEnd}>
+                        Load More
+                    </button>
+                </div>
+            }
         </div>
     );
 }
